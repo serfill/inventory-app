@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/main.css') }}">
+    <title>Инвентаризация</title>
+</head>
+<body>
+    <div>
+        <a href="/site">На главную</a>
+    </div>
+
+        {% for entry in pc %}
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>
+                    <div class="info">Имя компьютера: {{ entry.computername }}</div>
+                    <div class="info">Последний пользователь: {{ entry.username }}</div>
+                    <div class="info">Дата сбора инфорамации: {{ entry.dt }}</div>                    
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h6 class="caption">Процессор</h6>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Наименование</th>
+                    <th>Частота</th>
+                    <th>Количество ядер</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cpu in entry.PC_CPU %}
+                <tr>
+                    <td>{{ cpu.CPU_Name }}</td>
+                    <td>{{ cpu.CPU_Speed }}</td>
+                    <td>{{ cpu.CPU_Cores }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h6 class="caption">Материнская плата</h6>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Производитель</th>
+                    <th>Модель</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>{{ entry.PC_Motherboard.MB_Manufacturer }}</td>
+                    <td>{{ entry.PC_Motherboard.MB_Model }}</td>
+                </tr>
+                
+            </tbody>
+        </table>
+
+
+
+        <h6 class="caption">Дисковая подсистема</h6>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Наименование</th>
+                    <th>Тип</th>
+                    <th>Размер (Гб)</th>
+                    <th>Серийный номер</th>
+                    <th>Состояние</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for disk in entry.PC_PD %}
+                <tr>
+                    <td>{{ disk.PD_Name }}</td>
+                    <td>{{ disk.PD_Type }}</td>
+                    <td>{{ disk.PD_Size }}</td>
+                    <td>{{ disk.PD_SN }}</td>
+                    <td>{{ disk.PD_Health }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+        <h6 class="caption">Оперативная память</h6>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Производитель</th>
+                    <th>Модель</th>
+                    <th>Объем (Гб)</th>
+                    <th>Частота</th>
+                    <th>Напряжение</th>
+                    <th>Серийный номер</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for memory in entry.PC_PM %}
+                <tr>
+                    <td>{{ memory.Manufacturer }}</td>
+                    <td>{{ memory.PartNumber }}</td>
+                    <td>{{ memory.Size }}</td>
+                    <td>{{ memory.Speed }}</td>
+                    <td>{{ memory.Voltage }}</td>
+                    <td>{{ memory.SerialNumber }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h6 class="caption">Сетевые интерфейсы</h6>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Наименование</th>
+                    <th>IP-адрес</th>
+                    <th>Маска сети</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for net in entry.PC_Network %}
+                <tr>
+                    <td>{{ net.Alias }}</td>
+                    <td>{{ net.IPAddress }}</td>
+                    <td>{{ net.Prefix }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h6 class="caption">Программное обеспечение</h6>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Наименование</th>
+                    <th>Производитель</th>
+                    <th>Версия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in entry.PC_Product %}
+                <tr>
+                    <td>{{ product.Name }}</td>
+                    <td>{{ product.Vendor }}</td>
+                    <td>{{ product.Version }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+
+        {% endfor %}                
+
+
+</body>
+</html>

@@ -15,6 +15,10 @@ class webapi:
             return [i for i in self.history.find({}, {"_id": False})]
         else:
             return [i for i in self.history.find({field: value}, {"_id": False}).sort(sortField, sortArray)] if field in ["username", "computername"] else []
+        
+    def getComputerInfo(self, computername):
+        return [i for i in self.inventory.find({"computername": computername}, {"_id": False})]
+        
 
     def test():
         return "Ok"

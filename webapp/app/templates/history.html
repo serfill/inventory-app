@@ -23,9 +23,10 @@
         {% for entry in rec %}
             <tr>
                 <td><a href="/site/history/username/{{ entry.username}}">{{ entry.username }}</a></td>
-                <td><a href="/site/history/computername/{{ entry.computername }}">{{ entry.computername }}</a></td>
+                <td><a href="/site/info/computername/{{ entry.computername }}">{{ entry.computername }}</a></td>
                 <td>{{ entry.dt }}</td>
             </tr>
+
         {% endfor %}                
         </tbody>
     </table>

@@ -63,6 +63,12 @@ def site_index():
 def site_history_by(field, value):
     return render_template("history.html", rec=api.getHistory(field, value))
 
+@app.route("/site/computer/<computername>")
+def site_computer(computername):
+    return render_template("info_pc.html", pc = api.getComputerInfo(computername))
+
+
+
 
 if __name__ == "__main__":
     app.debug = True
