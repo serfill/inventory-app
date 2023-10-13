@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-import config
+import config as config
 
 
 

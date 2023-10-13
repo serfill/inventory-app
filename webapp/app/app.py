@@ -1,6 +1,8 @@
 from flask import Flask, url_for, request, jsonify, render_template
+from flask_moment import Moment
 from pymongo import MongoClient
-import json
+import datetime
+
 import config
 import webapi
 
@@ -12,6 +14,7 @@ coll = base["inventory"]
 history = base["history"]
 
 app = Flask(__name__)
+moment = Moment(app)
 
 @app.route("/")
 def default():
@@ -22,6 +25,7 @@ def api_v1_computers():
     if request.method == "POST":
         try:
             d = request.get_json()
+            d["dt"] = datetime.datetime.now()
             coll.update_many(
                 {"computername": d["computername"]},
                 {"$set": d},
@@ -30,7 +34,8 @@ def api_v1_computers():
             history.insert_one({
                     "username": d["username"],
                     "computername": d["computername"],
-                    "collect_date": d["collect_date"]
+                    "collect_date": d["collect_date"],
+                    "dt": d["dt"]
                     })
             return("Add")
         except Exception as e:

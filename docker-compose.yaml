@@ -3,13 +3,20 @@ services:
   mongo:
     image: mongo:6.0.4
     restart: always
-    ports:
-      - 27017:27017
     environment:
       - MONGO_INITDB_ROOT_USERNAME=mongodb
       - MONGO_INITDB_ROOT_PASSWORD=abc123ABC
       - TZ=Asia/Krasnoyarsk
     volumes:
       - mongodb:/data/db
+    ports:
+      - 27017:27017
+  api:
+    build: ./webapp
+    restart: always
+    ports:
+      - 5005:5000
+    environment:
+      - TZ=Asia/Krasnoyarsk
 volumes:
   mongodb:
